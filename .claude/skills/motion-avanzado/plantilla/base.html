@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="es-ES">
+<head>
+<meta charset="UTF-8">
+<!-- Plantilla base para HyperFrames: lienzo vertical 1080×1920, un solo timeline GSAP.
+     Cambia DURACION (aquí y en data-duration), la paleta y las escenas. -->
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Inter:wght@400;600;800&display=block" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.14.2/dist/gsap.min.js"></script>
+<style>
+  :root {
+    --fondo: #F4F1EA;   /* dominante */
+    --texto: #111111;   /* lectura */
+    --acento: #FF2E88;  /* solo lo importante */
+    --titular: "Instrument Serif", Georgia, serif;
+    --lectura: "Inter", Arial, sans-serif;
+    /* Zona segura (guía de anuncios de Reels de Meta: 14 % arriba, 35 % abajo, 6 % a los lados) */
+    --seg-arriba: 269px; --seg-abajo: 672px; --seg-lado: 65px;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html, body { width: 1080px; height: 1920px; overflow: hidden; background: var(--fondo); }
+  #main { position: relative; width: 1080px; height: 1920px; overflow: hidden;
+          color: var(--texto); font-family: var(--lectura); }
+  .escena { position: absolute; inset: 0; visibility: hidden; }
+  /* Guías: añade class="con-guias" a <body> para revisar; quítala para entregar */
+  .guias { display: none; position: absolute; inset: 0; pointer-events: none; z-index: 99; }
+  .con-guias .guias { display: block; }
+  .guias .segura { position: absolute; top: var(--seg-arriba); bottom: var(--seg-abajo);
+                   left: var(--seg-lado); right: var(--seg-lado); outline: 3px dashed #00A3FF; }
+  .guias .tercios { position: absolute; inset: 0;
+    background:
+      linear-gradient(#00A3FF55, #00A3FF55) 360px 0 / 2px 100% no-repeat,
+      linear-gradient(#00A3FF55, #00A3FF55) 720px 0 / 2px 100% no-repeat,
+      linear-gradient(#00A3FF55, #00A3FF55) 0 640px / 100% 2px no-repeat,
+      linear-gradient(#00A3FF55, #00A3FF55) 0 1280px / 100% 2px no-repeat; }
+</style>
+</head>
+<body>
+<div id="main" data-composition-id="main" data-start="0" data-duration="20" data-width="1080" data-height="1920">
+
+  <section class="escena" id="e1">
+    <!-- elementos de la escena 1 -->
+  </section>
+
+  <div class="guias" aria-hidden="true"><div class="segura"></div><div class="tercios"></div></div>
+</div>
+<script>
+  // HyperFrames pausa este timeline y lo busca fotograma a fotograma: nada de Date.now(),
+  // setTimeout, requestAnimationFrame ni Math.random() sin semilla.
+  window.__timelines = window.__timelines || {};
+  const DURACION = 20;
+  document.fonts.ready.then(function () {
+    const tl = gsap.timeline({ paused: true });
+
+    // == e1 (0–3 s) ==
+    tl.set("#e1", { visibility: "visible" }, 0);
+    // ... animaciones de la escena 1, con su tiempo absoluto como tercer argumento
+    tl.set("#e1", { visibility: "hidden" }, 3);
+
+    tl.set({}, {}, DURACION); // el timeline dura exactamente lo mismo que la composición
+    window.__timelines["main"] = tl; // la clave coincide con data-composition-id
+  });
+</script>
+</body>
+</html>

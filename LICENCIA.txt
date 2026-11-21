@@ -1,0 +1,7 @@
+Skills de «Mover con intención» · © 2026 El Estudio de Nadie
+
+Puedes usar y modificar estas cuatro skills en tus propios proyectos, también en encargos para clientes.
+No las revendas ni las distribuyas como producto propio.
+
+Herramientas que usan (no incluidas): HyperFrames (Apache-2.0), GSAP (licencia estándar gratuita de GSAP,
+gsap.com/licensing) y fuentes de Google Fonts con licencia SIL Open Font License 1.1.

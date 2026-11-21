@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="es-ES">
+<head>
+<meta charset="UTF-8">
+<!-- Plantilla base para HyperFrames: lienzo vertical 1080×1920, un solo timeline GSAP.
+     Cambia DURACION (aquí y en data-duration), la paleta y las escenas. -->
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Inter:wght@400;600;800&display=block" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.14.2/dist/gsap.min.js"></script>
+<style>
+  :root {
+    --fondo: #F4F1EA;   /* dominante */
+    --texto: #111111;   /* lectura */
+    --acento: #FF2E88;  /* solo lo importante */
+    --titular: "Instrument Serif", Georgia, serif;
+    --lectura: "Inter", Arial, sans-serif;
+    /* Zona segura (guía de anuncios de Reels de Meta: 14 % arriba, 35 % abajo, 6 % a los lados) */
+    --seg-arriba: 269px; --seg-abajo: 672px; --seg-lado: 65px;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html, body { width: 1080px; height: 1920px; overflow: hidden; background: var(--fondo); }
+  #main { position: relative; width: 1080px; height: 1920px; overflow: hidden;
+          color: var(--texto); font-family: var(--lectura); }
+  .escena { position: absolute; inset: 0; visibility: hidden; }
+  /* Guías: añade class="con-guias" a <body> para revisar; quítala para entregar */
+  .guias { display: none; position: absolute; inset: 0; pointer-events: none; z-index: 99; }
+  .con-guias .guias { display: block; }
+  .guias .segura { position: absolute; top: var(--seg-arriba); bottom: var(--seg-abajo);
+                   left: var(--seg-lado); right: var(--seg-lado); outline: 3px dashed #00A3FF; }
+  .guias .tercios { position: absolute; inset: 0;
+    background:
+      linear-gradient(#00A3FF55, #00A3FF55) 360px 0 / 2px 100% no-repeat,
+      linear-gradient(#00A3FF55, #00A3FF55) 720px 0 / 2px 100% no-repeat,
+      linear-gradient(#00A3FF55, #00A3FF55) 0 640px / 100% 2px no-repeat,
+      linear-gradient(#00A3FF55, #00A3FF55) 0 1280px / 100% 2px no-repeat; }
+
+  .etq { position:absolute; left:105px; top:330px; font: 600 34px var(--lectura); letter-spacing:4px; text-transform:uppercase; color:#8a857c; z-index:5; }
+  /* 2.5D */
+  .camara { position:absolute; inset:0; perspective:1200px; }
+  .mundo { position:absolute; inset:0; transform-style:preserve-3d; }
+  .capa { position:absolute; left:50%; top:50%; }
+  .sol { width:1500px; height:1500px; margin:-750px; border-radius:50%; background:#E8E2D4; }
+  .cerro { width:2600px; height:1800px; margin:-100px -1300px; border-radius:50% 50% 0 0; background:#D9D1BF; }
+  .disco { width:260px; height:260px; margin:-130px; border-radius:50%; background:var(--acento); }
+  .rotulo { font-family:var(--titular); font-size:130px; line-height:.95; width:760px; margin-left:-380px; margin-top:-420px; }
+  .mota { width:46px; height:46px; margin:-23px; border-radius:50%; background:#111; }
+  /* match cut */
+  #e2 { background:var(--acento); }
+  .tarjeta { position:absolute; left:140px; width:800px; height:170px; border-radius:28px; background:#F4F1EA; display:flex; align-items:center; padding:0 50px; font:600 56px var(--lectura); }
+  .bola { position:absolute; width:90px; height:90px; border-radius:50%; background:#111; left:140px; top:1250px; }
+  /* 2D */
+  #e3 { background:#111; color:#F4F1EA; }
+  #e3 .etq { color:#9a958c; }
+  .cuadro { position:absolute; border-radius:24px; }
+  #e4 { background:#F4F1EA; }
+  #e4 h2 { position:absolute; left:105px; top:700px; font-family:var(--titular); font-weight:400; font-size:146px; line-height:.95; }
+</style>
+</head>
+<body>
+<div id="main" data-composition-id="main" data-start="0" data-duration="16" data-width="1080" data-height="1920">
+
+  <section class="escena" id="e1"><div class="etq">2.5D · cámara</div>
+    <div class="camara"><div class="mundo">
+      <div class="capa sol" style="transform:translateZ(-1400px)"></div>
+      <div class="capa cerro" style="transform:translateZ(-600px)"></div>
+      <div class="capa rotulo" style="transform:translateZ(0px)">Lo cercano<br>corre más.</div>
+      <div class="capa disco" style="transform:translate3d(120px,180px,150px)"></div>
+      <div class="capa mota" style="transform:translate3d(-380px,520px,500px)"></div>
+      <div class="capa mota" style="transform:translate3d(400px,-560px,420px)"></div>
+    </div></div></section>
+  <section class="escena" id="e2"><div class="etq" style="color:#5a1030">Peso · superposición</div>
+    <div class="tarjeta" style="top:520px">Anticipa</div>
+    <div class="tarjeta" style="top:720px">Superpón</div>
+    <div class="tarjeta" style="top:920px">Asienta</div>
+    <div class="bola"></div></section>
+  <section class="escena" id="e3"><div class="etq">2D · señales de profundidad</div>
+    <div class="cuadro c1" style="left:620px;top:560px;width:220px;height:220px;background:#5E5A55;filter:blur(6px)"></div>
+    <div class="cuadro c2" style="left:330px;top:720px;width:330px;height:330px;background:#A8A39B;filter:blur(2px)"></div>
+    <div class="cuadro c3" style="left:120px;top:820px;width:420px;height:420px;background:var(--acento);box-shadow:0 40px 60px rgba(0,0,0,.45)"></div>
+  </section>
+  <section class="escena" id="e4"><h2>Cada transición<br>tiene un <em style="color:var(--acento)">motivo</em>.</h2></section>
+
+  <div class="guias" aria-hidden="true"><div class="segura"></div><div class="tercios"></div></div>
+</div>
+<script>
+  // HyperFrames pausa este timeline y lo busca fotograma a fotograma: nada de Date.now(),
+  // setTimeout, requestAnimationFrame ni Math.random() sin semilla.
+  window.__timelines = window.__timelines || {};
+  const DURACION = 16;
+  document.fonts.ready.then(function () {
+    const tl = gsap.timeline({ paused: true });
+
+    // == e1 · 2.5D (0–4.6 s): cámara que avanza y se desplaza
+    tl.set("#e1", { visibility: "visible" }, 0);
+    tl.fromTo("#e1 .mundo", { z: -150, x: 90 }, { z: 180, x: -90, duration: 4.4, ease: "power2.inOut" }, 0);
+    // == transición 1 · corte por coincidencia: el disco crece hasta ser el fondo de e2
+    tl.to(["#e1 .etq", "#e1 .rotulo"], { opacity: 0, duration: 0.25, ease: "power2.in" }, 3.9);
+    tl.to("#e1 .disco", { scale: 14, duration: 0.6, ease: "power3.in" }, 4.0);
+    tl.set("#e2", { visibility: "visible" }, 4.6);
+    tl.set("#e1", { visibility: "hidden" }, 4.6);
+    // == e2 · peso (4.6–9 s)
+    tl.from("#e2 .tarjeta", { x: -1000, duration: 0.7, ease: "power3.out", stagger: 0.12 }, 4.7);      // superposición
+    tl.from("#e2 .tarjeta", { rotation: -4, duration: 0.9, ease: "back.out(3)", stagger: 0.12 }, 4.7); // continuación
+    tl.to("#e2 .bola", { x: -30, duration: 0.25, ease: "power2.out" }, 6.0);                            // anticipación
+    tl.to("#e2 .bola", { x: 700, duration: 0.9, ease: "power2.inOut" }, 6.25);                         // arco: x e y con curvas distintas
+    tl.to("#e2 .bola", { y: -110, duration: 0.45, ease: "power2.out", yoyo: true, repeat: 1 }, 6.25);
+    // == transición 2 · cortinilla con máscara (8.6–9.2 s)
+    tl.set("#e3", { visibility: "visible", clipPath: "inset(100% 0% 0% 0%)" }, 8.6);
+    tl.to("#e3", { clipPath: "inset(0% 0% 0% 0%)", duration: 0.6, ease: "power3.inOut" }, 8.6);
+    tl.set("#e2", { visibility: "hidden" }, 9.2);
+    // == e3 · 2D (9.2–12.8 s): paralaje a mano, cada capa con su factor
+    [["#e3 .c1", 0.3], ["#e3 .c2", 0.6], ["#e3 .c3", 1]].forEach(function (c) {
+      tl.fromTo(c[0], { x: 120 * c[1] }, { x: -120 * c[1], duration: 3.6, ease: "none" }, 9.2);
+    });
+    // == transición 3 · empuje (12.6–13.2 s)
+    tl.set("#e4", { visibility: "visible", x: 1080 }, 12.6);
+    tl.to("#e3", { x: -1080, duration: 0.6, ease: "power3.inOut" }, 12.6);
+    tl.to("#e4", { x: 0, duration: 0.6, ease: "power3.inOut" }, 12.6);
+    tl.set("#e3", { visibility: "hidden" }, 13.2);
+    tl.set({}, {}, DURACION); // el timeline dura exactamente lo mismo que la composición
+    window.__timelines["main"] = tl; // la clave coincide con data-composition-id
+  });
+</script>
+</body>
+</html>
