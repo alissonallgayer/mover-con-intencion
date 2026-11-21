@@ -28,6 +28,10 @@ Instala las skills del minicurso «Mover con intención» en esta carpeta:
 
 **A mano:** copia la carpeta `.claude/skills/` de este repositorio dentro de tu carpeta de proyectos.
 
+**App de Claude (web o escritorio):** descarga los ZIP de [`para-la-app/`](para-la-app) y súbelos uno a uno en
+Customize → Skills → + → Create skill → Upload a skill, con la ejecución de código activada. Lo que renderiza con
+HyperFrames no se ha probado en la app: hazlo en tu ordenador.
+
 ## Requisitos
 - Claude Code con un plan Pro o superior (o la Consola de Anthropic).
 - Para renderizar: Node.js 22 o superior y FFmpeg. Las skills usan HyperFrames 0.8.145, que se descarga solo con `npx` la primera vez.
